@@ -33,9 +33,11 @@ router.post('/register', ...validation.register(), ({ body }, res) => {
     .catch(err => res.locals.error(err))
 })
 
-router.get('/profil', ({ res }) => {
+router.get('/profil', jwtUtil.middleware, ({ res }) => {
+  const { user_id } = res.locals
+
   service
-    .getProfil(53)
+    .getProfil(user_id)
     .then((data) => res.json({ message: 'Berhasil', data }))
     .catch(err => res.locals.error(err))
 })
