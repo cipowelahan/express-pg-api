@@ -14,12 +14,13 @@ const validation = {
     return [
       body('username')
         .isLength({ min: 6, max: 16 })
-        .withMessage('username min 6 and max 16 character'),
-      body('username')
-        .custom((value) => {
-          return userService.findBy('username', value).then(user => {
-            if (user) return Promise.reject('username already taken')
-          })
+        .withMessage('username min 6 and max 16 character')
+        .custom(async (value) => {
+          if (value) {
+            return userService.findBy('username', value).then(user => {
+              if (user) return Promise.reject('username already taken')
+            })
+          }
         }),
       body('name').isString().withMessage('name required'),
       body('password')

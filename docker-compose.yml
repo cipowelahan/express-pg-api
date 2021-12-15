@@ -2,6 +2,8 @@ version: '3'
 
 services:
   app:
+    container_name: "${APP_NAME}-app"
+    image: "${APP_NAME}-app:latest"
     build: ./project
     restart: always
     depends_on:
@@ -18,6 +20,7 @@ services:
       - app_network
 
   app-db:
+    container_name: "${APP_NAME}-db"
     image: postgres:10-alpine3.13
     restart: always
     volumes:
