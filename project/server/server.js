@@ -27,9 +27,7 @@ app.use(require('./routes'))
 
 // catch 404 and forward to error handler
 app.use(({ res }) => {
-  return res.status(404).json({
-    message: 'Route Not Found'
-  })
+  return res.status(404).json({ message: 'Route Not Found' })
 })
 
 module.exports = app

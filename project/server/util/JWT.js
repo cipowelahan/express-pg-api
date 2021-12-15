@@ -14,7 +14,7 @@ exports.middleware = (req, res, next) => {
   const { authorization } = req.headers
 
   if (authorization) {
-    const [bearer, token] = authorization.split(' ')
+    const [ bearer, token ] = authorization.split(' ')
     if (bearer == 'Bearer' && token) {
       JWT.verify(token, process.env.JWT_SECRET || 'secret', (err, decode) => {
         if (err) {

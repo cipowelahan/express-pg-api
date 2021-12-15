@@ -9,8 +9,8 @@ const service = {
     })
     return user
   },
-  create: async (body) => {
-    const user = await userModel.create(body)
+  create: async (data) => {
+    const user = await userModel.create(data)
     return user
   }
 }
