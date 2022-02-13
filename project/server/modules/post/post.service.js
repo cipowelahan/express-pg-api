@@ -1,9 +1,31 @@
 const postModel = require('./post.model')
+const paginationUtil = require('../../util/pagination')
 
 const service = {
-  fetch: async (user_id) => {
-    const posts = await postModel.findAll({ where: { user_id } })
-    return posts
+  fetch: async (user_id, query) => {
+    const configPaginate = paginationUtil.generateConfig({
+      query,
+      extraCondition: { user_id },
+      allowedFilterField: [
+        'id',
+        'title',
+        'slug',
+        'content',
+        'is_publish',
+        'created_at',
+        'updated_at'
+      ]
+    })
+    const posts = await postModel.findAndCountAll({
+      ...configPaginate,
+      include: [
+        {
+          association: 'user',
+          attributes: ['name']
+        }
+      ]
+    })
+    return paginationUtil.json(query, posts)
   },
   findBy: async (user_id, colomn, value) => {
     const post = await postModel.findOne({ where: { user_id, [colomn]: value } })

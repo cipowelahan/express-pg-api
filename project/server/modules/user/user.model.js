@@ -7,29 +7,21 @@ const user = database.define('user', {
     primaryKey: true,
     autoIncrement: true
   },
-
   username: {
     type: DataTypes.STRING,
     allowNull: false
   },
-
   name: {
     type: DataTypes.STRING,
     allowNull: false
   },
-
   password: {
     type: DataTypes.STRING,
     allowNull: false
   },
-
-  address: {
-    type: DataTypes.TEXT
-  },
-
+  address: DataTypes.TEXT
 }, {
   tableName: 'users',
-  underscored: true,
   createdAt: 'created_at',
   updatedAt: 'updated_at',
   indexes: [
